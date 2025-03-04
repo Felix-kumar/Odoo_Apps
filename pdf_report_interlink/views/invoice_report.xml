@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_document" inherit_id="account.report_invoice_document">
+
+        <xpath expr="//td[@class='text-end o_price_total'][last()]" position="after">
+            <td>
+                <t t-foreach="line.attachment_ids" t-as="attachment">
+                    <li>
+                        <a t-att-href="'#attachment_%s' % attachment.id"
+                           style="color: blue; text-decoration: underline;">
+                            <span t-field="attachment.name"/>
+                        </a>
+                    </li>
+                </t>
+            </td>
+        </xpath>
+
+        <xpath expr="//table[@class='table table-sm o_main_table table-borderless']/thead/tr/th[@name='th_subtotal']" position="after">
+            <th name="th_attachment" class="text-start"><span>Attachment</span></th>
+        </xpath>
+
+        <xpath expr="//div[@id='qrcode']" position="after">
+                <t t-foreach="o.invoice_line_ids" t-as="line" >
+                    <t t-foreach="line.attachment_ids" t-as="attachment">
+
+                            <div class="page" t-att-id="'attachment_%s' % attachment.id" style="page-break-before: always;">
+                                <h3 t-field="attachment.name"/>
+                                <iframe t-att-src="'/web/content/%s?download=true' % attachment.id"
+                                        width="100%" height="800px">
+                                </iframe>
+                            </div>
+                    </t>
+                </t>
+                <a href="#invoice_table" style="color: blue;">Back to Invoice</a>
+        </xpath>
+
+    </template>
+</odoo>
