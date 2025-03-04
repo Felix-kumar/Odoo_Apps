@@ -5,7 +5,7 @@
     "category": "PDF Report Inter Link",
     "author": "Felix Kumar",
     "website": "felixodoo2@gmail.com",
-    "license": "Other proprietary",
+    "license": "LGPL-3",
     'depends': ['base', 'account'],
     "data": [
         'views/invoice.xml',
